@@ -33,6 +33,13 @@ module SimplerNavigation
 
         tags
       end
+
+      def link_tag_options(item)
+        options = super
+        options.delete(:class)
+
+        options
+      end
     end
   end
 end
