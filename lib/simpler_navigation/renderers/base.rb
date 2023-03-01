@@ -120,10 +120,10 @@ module SimplerNavigation
             item_url_path = url_path(item.url).downcase
             selected = SimplerNavigation.request_fullpath.downcase.start_with?(item_url_path)
           end
+        end
 
-          selected ||= item.children.any? do |key, value|
-            selected?(value)
-          end
+        selected ||= item.children.any? do |key, value|
+          selected?(value)
         end
 
         @selected[item] = selected
