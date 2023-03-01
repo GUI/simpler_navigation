@@ -147,23 +147,9 @@ module SimplerNavigation
 
         show = true
         if !item.options[:if].nil?
-          show = case item.options[:if]
-          when false
-            false
-          when true
-            true
-          else
-            item.options[:if].call
-          end
+          show = item.options[:if].call
         elsif !item.options[:unless].nil?
-          show = case item.options[:unless]
-          when false
-            true
-          when true
-            false
-          else
-            !item.options[:unless].call
-          end
+          show = !item.options[:unless].call
         end
 
         @show[item] = show
