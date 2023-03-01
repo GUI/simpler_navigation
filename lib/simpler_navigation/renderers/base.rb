@@ -66,6 +66,9 @@ module SimplerNavigation
           classes << SimplerNavigation.config.selected_class
         end
         options[:class] = classes.compact.join(" ")
+        if options[:class].empty?
+          options.delete(:class)
+        end
 
         options
       end
@@ -88,6 +91,9 @@ module SimplerNavigation
           classes << SimplerNavigation.config.active_leaf_class
         end
         options[:class] = classes.compact.join(" ")
+        if options[:class].empty?
+          options.delete(:class)
+        end
 
         options
       end
