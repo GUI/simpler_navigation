@@ -4,6 +4,8 @@ module SimplerNavigation
   module Renderers
     class Breadcrumb < Base
       def render
+        return "" if @item.nil?
+
         tags = crumb_tags(@item)
 
         join_with = @options[:join_with] || " "

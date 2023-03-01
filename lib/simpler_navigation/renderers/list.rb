@@ -4,6 +4,8 @@ module SimplerNavigation
   module Renderers
     class List < Base
       def render
+        return "" if @item.nil?
+
         list = []
         @item.children.each_value do |item|
           next unless show?(item)
