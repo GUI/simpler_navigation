@@ -7,6 +7,10 @@ module SimplerNavigation
       include ActionView::Helpers::UrlHelper
       include ActionView::Helpers::OutputSafetyHelper
 
+      attr_reader :context
+      attr_reader :item
+      attr_reader :options
+
       def initialize(context, item, options = {})
         @selected = {}
         @active_leaf = {}
@@ -121,7 +125,7 @@ module SimplerNavigation
         when Regexp
           selected = item.options[:highlights_on].match?(@request_fullpath)
         when Proc
-          selected = item.options[:highlights_on].call
+          selected = item.options[:highlights_on].call(self)
         else
           item_url_path = url_path(item.url).downcase
           selected = @request_fullpath.downcase.start_with?(item_url_path)
@@ -152,7 +156,7 @@ module SimplerNavigation
 
         show = true
         if !item.options[:if].nil?
-          show = item.options[:if].call
+          show = item.options[:if].call(self)
         elsif !item.options[:unless].nil?
           show = !item.options[:unless].call
         end
