@@ -12,6 +12,5 @@ module SimplerNavigation
 
   class << self
     attr_accessor :config
-    attr_accessor :request_fullpath
   end
 end

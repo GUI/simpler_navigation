@@ -16,6 +16,11 @@ module SimplerNavigation
         @item = item
         @options = options
 
+        @request_fullpath = context.request.fullpath
+        if @options[:request_fullpath]
+          @request_fullpath = @options[:request_fullpath]
+        end
+
         if @item.nil?
           case @options[:level]
           when :all
@@ -112,14 +117,12 @@ module SimplerNavigation
         selected = false
         case item.options[:highlights_on]
         when Regexp
-          selected = item.options[:highlights_on].match?(SimplerNavigation.request_fullpath)
+          selected = item.options[:highlights_on].match?(@request_fullpath)
         when Proc
           selected = item.options[:highlights_on].call
         else
-          if SimplerNavigation.request_fullpath
-            item_url_path = url_path(item.url).downcase
-            selected = SimplerNavigation.request_fullpath.downcase.start_with?(item_url_path)
-          end
+          item_url_path = url_path(item.url).downcase
+          selected = @request_fullpath.downcase.start_with?(item_url_path)
         end
 
         selected ||= item.children.any? do |key, value|
