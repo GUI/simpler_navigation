@@ -16,6 +16,8 @@ module SimplerNavigation
         @item = item
         @options = options
 
+        @options[:level] ||= :all
+
         @request_fullpath = context.request.fullpath
         if @options[:request_fullpath]
           @request_fullpath = @options[:request_fullpath]
