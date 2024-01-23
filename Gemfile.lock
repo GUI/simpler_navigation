@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    simpler_navigation (0.1.6)
+    simpler_navigation (0.2.0)
       actionview
       railties
 
