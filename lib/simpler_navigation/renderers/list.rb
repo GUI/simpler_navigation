@@ -22,7 +22,7 @@ module SimplerNavigation
           list << content_tag(:li, li_content, wrapper_tag_options(item))
         end
 
-        content_tag(:ul, safe_join(list))
+        content_tag(:ul, safe_join(list), @options[:attributes])
       end
     end
   end

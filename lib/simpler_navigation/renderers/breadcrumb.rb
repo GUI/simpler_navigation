@@ -9,7 +9,7 @@ module SimplerNavigation
         tags = crumb_tags(@item)
 
         join_with = @options[:join_with] || " "
-        content_tag(:div, safe_join(tags, join_with))
+        content_tag(:div, safe_join(tags, join_with), @options[:attributes])
       end
 
       private
