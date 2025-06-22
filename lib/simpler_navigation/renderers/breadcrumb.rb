@@ -8,8 +8,7 @@ module SimplerNavigation
 
         tags = crumb_tags(@item)
 
-        join_with = @options[:join_with] || " "
-        content_tag(:div, safe_join(tags, join_with), @options[:attributes])
+        content_tag(:ol, safe_join(tags), @options[:attributes])
       end
 
       private
@@ -20,11 +19,19 @@ module SimplerNavigation
         parent_item.children.each_value do |item|
           next unless show?(item) && selected?(item)
 
-          tags << if @options[:static_leaf] && active_leaf?(item)
+          active = active_leaf?(item)
+          li_content = if @options[:static_leaf] && active
             content_tag("span", item.name, link_tag_options(item))
           else
             link_tag(item)
           end
+
+          li_options = wrapper_tag_options(item)
+          if active
+            li_options[:"aria-current"] = "page"
+          end
+
+          tags << content_tag(:li, li_content, li_options)
 
           if include_sub_navigation?(item)
             tags += crumb_tags(item)

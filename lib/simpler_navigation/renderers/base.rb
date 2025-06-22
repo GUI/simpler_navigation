@@ -63,18 +63,19 @@ module SimplerNavigation
       end
 
       def link_tag_options(item)
-        options = if item.options[:link_html]
-          item.options[:link_html].dup
-        else
-          {}
-        end
+        render_options = @options[:link_html] || {}
+        item_options = item.options[:link_html] || {}
+        options = render_options.merge(item_options)
 
         classes = []
-        if options[:class]
-          classes << options[:class]
+        if render_options[:class]
+          classes << render_options[:class]
+        end
+        if item_options[:class]
+          classes << item_options[:class]
         end
         if selected?(item)
-          classes << SimplerNavigation.config.selected_class
+          classes << (@options[:selected_class] || SimplerNavigation.config.selected_class)
         end
         options[:class] = classes.compact.join(" ")
         if options[:class].empty?
@@ -85,21 +86,22 @@ module SimplerNavigation
       end
 
       def wrapper_tag_options(item)
-        options = if item.options[:html]
-          item.options[:html].dup
-        else
-          {}
-        end
+        render_options = @options[:html] || {}
+        item_options = item.options[:html] || {}
+        options = render_options.merge(item_options)
 
         classes = []
-        if options[:class]
-          classes << options[:class]
+        if render_options[:class]
+          classes << render_options[:class]
+        end
+        if item_options[:class]
+          classes << item_options[:class]
         end
         if selected?(item)
-          classes << SimplerNavigation.config.selected_class
+          classes << (@options[:selected_class] || SimplerNavigation.config.selected_class)
         end
         if active_leaf?(item)
-          classes << SimplerNavigation.config.active_leaf_class
+          classes << (@options[:active_leaf_class] || SimplerNavigation.config.active_leaf_class)
         end
         options[:class] = classes.compact.join(" ")
         if options[:class].empty?
